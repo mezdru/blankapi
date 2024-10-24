@@ -18,16 +18,12 @@ export class AuthService {
   ) {}
 
   generateJwt(payload) {
-    console.log('generateJwt', payload);
-
     return this.jwtService.sign(payload, {
       secret: process.env.NEST_JWT_SECRET,
     });
   }
 
   async login(user) {
-    console.log('login', user);
-
     if (!user) {
       throw new BadRequestException('Unauthenticated');
     }
@@ -45,8 +41,6 @@ export class AuthService {
   }
 
   async registerUser(user: RegisterUserDto) {
-    console.log('registerUser', user);
-
     try {
       const newUser = this.userRepository.create(user);
 
@@ -62,8 +56,6 @@ export class AuthService {
   }
 
   async findUserByEmail(email: string) {
-    console.log('findUserByEmail', email);
-
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {
