@@ -67,12 +67,30 @@
     "webpack-node-externals": "^3.0.0"
   },
   "jest": {
+    "setupFiles": [
+      "dotenv/config"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "./",
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "dist",
+      "test",
+      "src/auth/guards",
+      "src/auth/strategies",
+      "src/main.ts",
+      ".mock.ts",
+      ".dto.ts",
+      ".eslintrc.js",
+      "webpack-hmr.config.js"
+    ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
