@@ -68,7 +68,7 @@
   },
   "jest": {
     "setupFiles": [
-      "dotenv/config"
+      "<rootDir>/test/setEnvVars.ts"
     ],
     "moduleFileExtensions": [
       "js",
