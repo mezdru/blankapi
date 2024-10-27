@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { MockType, repositoryMockFactory } from '../utils/tests/tests.utils';
+import { CreateUserDto } from './dto/createUser.dto';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -27,5 +28,31 @@ describe('UsersService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it("should call the repository's find method with email", async () => {
+    const email = 'email';
+    await service.findOneByEmail(email);
+
+    expect(repositoryMock.findOne).toHaveBeenCalledWith({ where: { email } });
+  });
+
+  it("should call the repository's find method with id", async () => {
+    const id = 'id';
+    await service.findOneById(id);
+
+    expect(repositoryMock.findOne).toHaveBeenCalledWith({ where: { id } });
+  });
+
+  it("should call the repository's save method", async () => {
+    const userObj: CreateUserDto = {
+      email: 'email',
+      firstName: 'firstName',
+      lastName: 'lastName',
+    };
+
+    await service.createOne(userObj);
+
+    expect(repositoryMock.save).toHaveBeenCalledWith(userObj);
   });
 });

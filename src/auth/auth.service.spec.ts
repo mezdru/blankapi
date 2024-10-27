@@ -13,8 +13,8 @@ describe('AuthService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
-        UsersService,
         JwtService,
+        UsersService,
         {
           provide: getRepositoryToken(User),
           useFactory: repositoryMockFactory,
