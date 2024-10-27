@@ -36,6 +36,7 @@ describe('AuthService', () => {
       firstName: 'quentin',
       lastName: 'tarantino',
       isActive: true,
+      createdAt: new Date(),
     };
 
     const token = service.generateJwt(user);
