@@ -1,18 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Strategy, VerifyCallback } from 'passport-google-oauth2';
-import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor(
-    private configService: ConfigService,
-    @InjectRepository(User) private userRepository: Repository<User>,
-  ) {
-    console.log('GoogleStrategy');
+  constructor(private configService: ConfigService) {
     super({
       clientID: configService.get('NEST_GOOGLE_CLIENT_ID'),
       clientSecret: configService.get('NEST_GOOGLE_CLIENT_SECRET'),
@@ -34,9 +27,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
     done: VerifyCallback,
   ): Promise<any> {
-    const { id, name, emails } = profile;
-
-    console.log('GoogleStrategy validate', profile);
+    const { name, emails } = profile;
 
     const user = {
       // provider: 'google',

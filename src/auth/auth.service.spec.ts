@@ -13,8 +13,8 @@ describe('AuthService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
-        UsersService,
         JwtService,
+        UsersService,
         {
           provide: getRepositoryToken(User),
           useFactory: repositoryMockFactory,
@@ -30,16 +30,9 @@ describe('AuthService', () => {
   });
 
   it('should generate a token', async () => {
-    const user: User = {
-      id: '1',
-      email: '',
-      firstName: 'quentin',
-      lastName: 'tarantino',
-      isActive: true,
-      createdAt: new Date(),
-    };
+    const payload = { sub: 'id', email: 'email' };
 
-    const token = service.generateJwt(user);
+    const token = service.generateJwt(payload);
 
     expect(token).toBeDefined();
   });
