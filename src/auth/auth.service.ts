@@ -5,16 +5,13 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/auth.dto';
-import { Repository } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private usersService: UsersService,
   ) {}
 
   generateJwt(payload) {
@@ -28,7 +25,7 @@ export class AuthService {
       throw new BadRequestException('Unauthenticated');
     }
 
-    const userExists = await this.findUserByEmail(user.email);
+    const userExists = await this.usersService.findOneByEmail(user.email);
 
     if (!userExists) {
       return this.registerUser(user);
@@ -42,9 +39,7 @@ export class AuthService {
 
   async registerUser(user: RegisterUserDto) {
     try {
-      const newUser = this.userRepository.create(user);
-
-      await this.userRepository.save(newUser);
+      const newUser = await this.usersService.createOne(user);
 
       return this.generateJwt({
         sub: newUser.id,
@@ -53,15 +48,5 @@ export class AuthService {
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
-  }
-
-  async findUserByEmail(email: string) {
-    const user = await this.userRepository.findOne({ where: { email } });
-
-    if (!user) {
-      return null;
-    }
-
-    return user;
   }
 }

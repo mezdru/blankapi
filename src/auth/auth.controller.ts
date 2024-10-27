@@ -21,19 +21,16 @@ export class AuthController {
 
   @Get('google/callback')
   @HttpCode(HttpStatus.OK)
-  @Redirect('http://localhost:3000')
+  @Redirect('http://localhost:3000') // TODO: env var
   @UseGuards(GoogleOauthGuard)
   async googleAuhCallback(@Req() req, @Res() res) {
-    console.log('googleAuhCallback', req.user);
     const token = await this.authService.login(req.user);
-    console.log('token', token);
 
+    // TODO: update params
     res.cookie('access_token', token, {
       maxAge: 2592000000,
       sameSite: true,
       secure: false,
     });
-
-    console.log('cookie', res.getHeaders());
   }
 }

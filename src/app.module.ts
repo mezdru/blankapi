@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
+import { AccountsModule } from './accounts/accounts.module';
+import { PicturesModule } from './pictures/pictures.module';
 
 @Module({
   imports: [
@@ -22,10 +24,12 @@ import { User } from './users/entities/user.entity';
         database: process.env.DB_DATABASE,
         autoLoadEntities: true,
         synchronize: true,
-        logging: true,
+        logging: true, // TODO: only for development
         entities: [User],
       }),
     }),
+    AccountsModule,
+    PicturesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

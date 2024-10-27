@@ -1,9 +1,13 @@
+import { Account } from 'src/accounts/entities/account.entity';
+import { Picture } from 'src/pictures/entities/picture.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 @Entity()
@@ -23,9 +27,18 @@ export class User {
   @Column()
   email: string;
 
+  @OneToOne(() => Account)
+  account: Account;
+
+  @OneToOne(() => Picture)
+  picture: Picture;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Picture, (picture) => picture.user)
+  pictures: Picture[];
 }
