@@ -5,9 +5,9 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
 import { AccountsModule } from './accounts/accounts.module';
 import { PicturesModule } from './pictures/pictures.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -25,11 +25,12 @@ import { PicturesModule } from './pictures/pictures.module';
         autoLoadEntities: true,
         synchronize: true,
         logging: true, // TODO: only for development
-        entities: [User],
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
     }),
     AccountsModule,
     PicturesModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
