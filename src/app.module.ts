@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountsModule } from './accounts/accounts.module';
 import { PicturesModule } from './pictures/pictures.module';
 import { TagsModule } from './tags/tags.module';
+import { ActivitiesModule } from './activities/activities.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { TagsModule } from './tags/tags.module';
     AccountsModule,
     PicturesModule,
     TagsModule,
+    ActivitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
