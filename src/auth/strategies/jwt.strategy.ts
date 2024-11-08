@@ -15,18 +15,22 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     private configService: ConfigService,
     private usersService: UsersService,
   ) {
-    const extractJwtFromCookie = (req) => {
+    const extractJwt = (req) => {
       let token = null;
-      if (req && req.cookies) {
+
+      if (req && req.headers.authorization) {
+        token = req.headers.authorization.replace('Bearer ', '');
+      } else if (req.cookies) {
         token = req.cookies['access_token'];
       }
+
       return token || ExtractJwt.fromAuthHeaderAsBearerToken()(req);
     };
 
     super({
       ignoreExpiration: false,
       secretOrKey: configService.get<string>('NEST_JWT_SECRET'),
-      jwtFromRequest: extractJwtFromCookie,
+      jwtFromRequest: extractJwt,
     });
   }
 

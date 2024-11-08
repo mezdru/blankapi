@@ -12,10 +12,12 @@ export class UsersService {
   ) {}
 
   findOneByEmail(email: string) {
+    if (!email) return null;
     return this.userRepository.findOne({ where: { email } });
   }
 
   findOneById(id: string) {
+    if (!id) return null;
     return this.userRepository.findOne({ where: { id } });
   }
 

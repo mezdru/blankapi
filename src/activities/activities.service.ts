@@ -9,4 +9,9 @@ export class ActivitiesService {
     @InjectRepository(Activity)
     private accountRepository: Repository<Activity>,
   ) {}
+
+  async findOne(id: string): Promise<Activity> {
+    if (!id) return null;
+    return this.accountRepository.findOne({ where: { id } });
+  }
 }

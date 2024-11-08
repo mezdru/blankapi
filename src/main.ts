@@ -15,6 +15,7 @@ async function bootstrap() {
     .setTitle('Pizzabière API')
     .setDescription('The Pizzabière API')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () =>
