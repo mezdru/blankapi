@@ -9,4 +9,9 @@ export class AccountsService {
     @InjectRepository(Account)
     private accountRepository: Repository<Account>,
   ) {}
+
+  findOneById(id: string) {
+    if (!id) return null;
+    return this.accountRepository.findOne({ where: { id } });
+  }
 }

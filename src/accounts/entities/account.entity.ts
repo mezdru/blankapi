@@ -28,4 +28,7 @@ export class Account {
 
   @OneToMany(() => Picture, (picture) => picture.account)
   pictures: Picture[];
+
+  @Column()
+  stripeCustomerId: string;
 }

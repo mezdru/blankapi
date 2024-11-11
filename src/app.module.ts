@@ -9,6 +9,7 @@ import { AccountsModule } from './accounts/accounts.module';
 import { PicturesModule } from './pictures/pictures.module';
 import { TagsModule } from './tags/tags.module';
 import { ActivitiesModule } from './activities/activities.module';
+import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ActivitiesModule } from './activities/activities.module';
     PicturesModule,
     TagsModule,
     ActivitiesModule,
+    SubscriptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
