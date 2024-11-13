@@ -4,12 +4,13 @@ import {
   HttpCode,
   HttpStatus,
   Redirect,
-  Req,
-  Res,
+  Request,
+  Response,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
+import { UserRequest } from 'src/utils/types/request';
 
 @Controller('auth')
 export class AuthController {
@@ -23,7 +24,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Redirect('http://localhost:3000') // TODO: env var
   @UseGuards(GoogleOauthGuard)
-  async googleAuhCallback(@Req() req, @Res() res) {
+  async googleAuhCallback(@Request() req: UserRequest, @Response() res) {
     const token = await this.authService.login(req.user);
 
     // TODO: update params
