@@ -11,8 +11,6 @@ import { StripeModule } from '@golevelup/nestjs-stripe';
         stripeSecrets: {
           account: process.env.STRIPE_ACCOUNT_KEY,
           accountTest: process.env.STRIPE_ACCOUNT_TEST_KEY,
-          connect: process.env.STRIPE_CONNECT_KEY,
-          connectTest: process.env.STRIPE_CONNECT_TEST_KEY,
         },
         requestBodyProperty: 'rawBody',
       },

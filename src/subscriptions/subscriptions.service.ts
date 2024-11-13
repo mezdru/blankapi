@@ -1,6 +1,5 @@
 import { InjectStripeClient } from '@golevelup/nestjs-stripe';
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/users/entities/user.entity';
 import Stripe from 'stripe';
 import { CreateSubscriptionSessionDto } from './dto/createSubscriptionSession.dto';
 
