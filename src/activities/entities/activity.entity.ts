@@ -1,4 +1,4 @@
-import { Tag } from 'src/tags/entities/tag.entity';
+import { Tag } from "src/tags/entities/tag.entity";
 import {
   Column,
   CreateDateColumn,
@@ -7,17 +7,17 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
 export enum ActivityType {
-  ACTIVITY = 'ACTIVITY',
-  EVENT = 'EVENT',
-  TASK = 'TASK',
+  ACTIVITY = "ACTIVITY",
+  EVENT = "EVENT",
+  TASK = "TASK",
 }
 
 @Entity()
 export class Activity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -27,7 +27,7 @@ export class Activity {
   description: string;
 
   @Column({
-    type: 'enum',
+    type: "enum",
     enum: ActivityType,
     default: ActivityType.ACTIVITY,
   })

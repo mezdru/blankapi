@@ -1,10 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { TagsService } from './tags.service';
-import { Tag } from './entities/tag.entity';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { repositoryMockFactory } from 'src/utils/tests/tests.utils';
+import { Test, TestingModule } from "@nestjs/testing";
+import { TagsService } from "./tags.service";
+import { Tag } from "./entities/tag.entity";
+import { getRepositoryToken } from "@nestjs/typeorm";
+import { repositoryMockFactory } from "src/utils/tests/tests.utils";
 
-describe('TagsService', () => {
+describe("TagsService", () => {
   let service: TagsService;
 
   beforeEach(async () => {
@@ -21,7 +21,7 @@ describe('TagsService', () => {
     service = module.get<TagsService>(TagsService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });

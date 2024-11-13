@@ -1,5 +1,5 @@
-import { Account } from 'src/accounts/entities/account.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Account } from "src/accounts/entities/account.entity";
+import { User } from "src/users/entities/user.entity";
 import {
   Column,
   CreateDateColumn,
@@ -7,11 +7,11 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 export class Picture {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()

@@ -1,5 +1,5 @@
-import { Account } from 'src/accounts/entities/account.entity';
-import { Picture } from 'src/pictures/entities/picture.entity';
+import { Account } from "src/accounts/entities/account.entity";
+import { Picture } from "src/pictures/entities/picture.entity";
 import {
   Entity,
   Column,
@@ -8,11 +8,11 @@ import {
   UpdateDateColumn,
   OneToMany,
   OneToOne,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()

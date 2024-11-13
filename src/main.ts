@@ -1,7 +1,7 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import * as cookieParser from 'cookie-parser';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import * as cookieParser from "cookie-parser";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 declare const module: any;
 
@@ -12,17 +12,17 @@ async function bootstrap() {
   app.use(cookieParser());
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Pizzabière API')
-    .setDescription('The Pizzabière API')
-    .setVersion('1.0')
+    .setTitle("Pizzabière API")
+    .setDescription("The Pizzabière API")
+    .setVersion("1.0")
     .addBearerAuth()
     .build();
 
   const documentFactory = () =>
     SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('swagger', app, documentFactory);
+  SwaggerModule.setup("swagger", app, documentFactory);
 
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix("api");
   await app.listen(process.env.NESTJS_APP_LOCAL_PORT);
 
   // This is necessary to make the hot-reload work with Docker

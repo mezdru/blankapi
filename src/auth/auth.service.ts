@@ -2,16 +2,16 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
-} from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { RegisterUserDto } from './dto/auth.dto';
-import { UsersService } from 'src/users/users.service';
+} from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { RegisterUserDto } from "./dto/auth.dto";
+import { UsersService } from "src/users/users.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
-    private usersService: UsersService,
+    private usersService: UsersService
   ) {}
 
   generateJwt(payload) {
@@ -22,7 +22,7 @@ export class AuthService {
 
   async login(user) {
     if (!user) {
-      throw new BadRequestException('Unauthenticated');
+      throw new BadRequestException("Unauthenticated");
     }
 
     const userExists = await this.usersService.findOneByEmail(user.email);
