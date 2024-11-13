@@ -1,11 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ActivitiesController } from './activities.controller';
-import { ActivitiesService } from './activities.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Activity } from './entities/activity.entity';
-import { repositoryMockFactory } from 'src/utils/tests/tests.utils';
+import { Test, TestingModule } from "@nestjs/testing";
+import { ActivitiesController } from "./activities.controller";
+import { ActivitiesService } from "./activities.service";
+import { getRepositoryToken } from "@nestjs/typeorm";
+import { Activity } from "./entities/activity.entity";
+import { repositoryMockFactory } from "src/utils/tests/tests.utils";
 
-describe('ActivitiesController', () => {
+describe("ActivitiesController", () => {
   let controller: ActivitiesController;
 
   beforeEach(async () => {
@@ -23,7 +23,7 @@ describe('ActivitiesController', () => {
     controller = module.get<ActivitiesController>(ActivitiesController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

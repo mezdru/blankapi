@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Repository } from "typeorm";
 
 export type MockType<T> = {
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -13,5 +13,5 @@ export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(
     save: jest.fn(),
     delete: jest.fn(),
     create: jest.fn(),
-  }),
+  })
 );

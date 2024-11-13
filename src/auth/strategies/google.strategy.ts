@@ -1,16 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, VerifyCallback } from 'passport-google-oauth2';
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { PassportStrategy } from "@nestjs/passport";
+import { Strategy, VerifyCallback } from "passport-google-oauth2";
 
 @Injectable()
-export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
   constructor(private configService: ConfigService) {
     super({
-      clientID: configService.get('NEST_GOOGLE_CLIENT_ID'),
-      clientSecret: configService.get('NEST_GOOGLE_CLIENT_SECRET'),
-      callbackURL: configService.get('NEST_GOOGLE_CALLBACK_URL'),
-      scope: ['profile', 'email'],
+      clientID: configService.get("NEST_GOOGLE_CLIENT_ID"),
+      clientSecret: configService.get("NEST_GOOGLE_CLIENT_SECRET"),
+      callbackURL: configService.get("NEST_GOOGLE_CALLBACK_URL"),
+      scope: ["profile", "email"],
     });
   }
 
@@ -25,7 +25,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     _accessToken: string,
     _refreshToken: string,
     profile: any,
-    done: VerifyCallback,
+    done: VerifyCallback
   ): Promise<any> {
     const { name, emails } = profile;
 

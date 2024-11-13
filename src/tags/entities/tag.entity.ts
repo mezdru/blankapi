@@ -1,4 +1,4 @@
-import { Picture } from 'src/pictures/entities/picture.entity';
+import { Picture } from "src/pictures/entities/picture.entity";
 import {
   Column,
   CreateDateColumn,
@@ -6,11 +6,11 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 export class Tag {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()

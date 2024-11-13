@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { SubscriptionsService } from './subscriptions.service';
-import { SubscriptionsController } from './subscriptions.controller';
-import { StripeModule } from '@golevelup/nestjs-stripe';
+import { Module } from "@nestjs/common";
+import { SubscriptionsService } from "./subscriptions.service";
+import { SubscriptionsController } from "./subscriptions.controller";
+import { StripeModule } from "@golevelup/nestjs-stripe";
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { StripeModule } from '@golevelup/nestjs-stripe';
           account: process.env.STRIPE_ACCOUNT_KEY,
           accountTest: process.env.STRIPE_ACCOUNT_TEST_KEY,
         },
-        requestBodyProperty: 'rawBody',
+        requestBodyProperty: "rawBody",
       },
     }),
   ],
