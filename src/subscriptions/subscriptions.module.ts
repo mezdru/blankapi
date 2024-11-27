@@ -18,5 +18,6 @@ import { StripeModule } from "@golevelup/nestjs-stripe";
   ],
   controllers: [SubscriptionsController],
   providers: [SubscriptionsService],
+  exports: [SubscriptionsService],
 })
 export class SubscriptionsModule {}
