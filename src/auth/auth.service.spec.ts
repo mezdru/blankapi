@@ -1,10 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthService } from "./auth.service";
 import { UsersService } from "src/users/users.service";
-import { getRepositoryToken } from "@nestjs/typeorm";
-import { User } from "src/users/entities/user.entity";
-import { repositoryMockFactory } from "src/utils/tests/tests.utils";
 import { JwtService } from "@nestjs/jwt";
+import { createMock } from "@golevelup/ts-jest";
 
 describe("AuthService", () => {
   let service: AuthService;
@@ -14,10 +12,9 @@ describe("AuthService", () => {
       providers: [
         AuthService,
         JwtService,
-        UsersService,
         {
-          provide: getRepositoryToken(User),
-          useFactory: repositoryMockFactory,
+          provide: UsersService,
+          useValue: createMock<UsersService>(),
         },
       ],
     }).compile();

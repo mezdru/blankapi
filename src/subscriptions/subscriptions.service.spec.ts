@@ -2,24 +2,10 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { SubscriptionsService } from "./subscriptions.service";
 import { STRIPE_CLIENT_TOKEN } from "@golevelup/nestjs-stripe";
 import Stripe from "stripe";
-
-const mockCreateCheckoutSession = jest.fn();
-const mockCreateBillingPortalSession = jest.fn();
-
-const MockStripeClient = {
-  checkout: {
-    sessions: {
-      create: mockCreateCheckoutSession,
-    },
-  },
-  billingPortal: {
-    sessions: {
-      create: mockCreateBillingPortalSession,
-    },
-  },
-} as unknown as Stripe;
+import { createMock } from "@golevelup/ts-jest";
 
 describe("SubscriptionsService", () => {
+  const stripeClient = createMock<Stripe>();
   let service: SubscriptionsService;
 
   beforeEach(async () => {
@@ -28,7 +14,7 @@ describe("SubscriptionsService", () => {
         SubscriptionsService,
         {
           provide: STRIPE_CLIENT_TOKEN,
-          useValue: MockStripeClient,
+          useValue: stripeClient,
         },
       ],
     }).compile();
@@ -45,13 +31,16 @@ describe("SubscriptionsService", () => {
       id: "123",
     };
 
-    mockCreateCheckoutSession.mockResolvedValue(mockCheckoutSession);
+    (stripeClient.checkout.sessions.create as jest.Mock).mockResolvedValue(
+      mockCheckoutSession
+    );
 
-    const session = await service.createSubscriptionSession("123", {
-      priceId: "priceId",
-    });
+    const session = await service.createSubscriptionSession(
+      { priceId: "priceId" },
+      "customerId"
+    );
 
-    expect(mockCreateCheckoutSession).toHaveBeenNthCalledWith(1, {
+    expect(stripeClient.checkout.sessions.create).toHaveBeenNthCalledWith(1, {
       cancel_url: "undefined",
       success_url: "undefined?session_id={CHECKOUT_SESSION_ID}",
       mode: "subscription",
@@ -61,25 +50,28 @@ describe("SubscriptionsService", () => {
           quantity: 1,
         },
       ],
-      customer: "123",
+      customer: "customerId",
     });
 
     expect(session).toEqual(mockCheckoutSession);
   });
 
   it("should create a billing portal session", async () => {
-    const mockBillingPortalSession = {
-      id: "id",
-    };
+    (stripeClient.billingPortal.sessions.create as jest.Mock).mockResolvedValue(
+      {
+        id: "123",
+      }
+    );
 
-    mockCreateBillingPortalSession.mockResolvedValue(mockBillingPortalSession);
+    const result = await service.getPortal("customerId");
 
-    const session = await service.getPortal("123");
+    expect(stripeClient.billingPortal.sessions.create).toHaveBeenNthCalledWith(
+      1,
+      {
+        customer: "customerId",
+      }
+    );
 
-    expect(mockCreateBillingPortalSession).toHaveBeenNthCalledWith(1, {
-      customer: "123",
-    });
-
-    expect(session).toEqual(mockBillingPortalSession);
+    expect(result).toEqual({ id: "123" });
   });
 });

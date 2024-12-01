@@ -8,7 +8,6 @@ import { CreateUserDto } from "./dto/createUser.dto";
 
 describe("UsersService", () => {
   let service: UsersService;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let repositoryMock: MockType<Repository<User>>;
 
   beforeEach(async () => {

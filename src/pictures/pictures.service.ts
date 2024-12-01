@@ -16,6 +16,7 @@ export class PicturesService {
     userId: string
   ) {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const uploadedPicture = await Promise.resolve(picture); // TODO: bucket
 
       return this.pictureRepository.save({
