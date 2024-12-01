@@ -12,6 +12,7 @@ export class FilesService {
     this.bucketName = process.env.GCP_STORAGE_BUCKET_NAME ?? "";
   }
 
+  // TODO: file metadata with account and user ?
   async uploadFileToBucket(
     file: Express.Multer.File
   ): Promise<UploadedFileDto> {

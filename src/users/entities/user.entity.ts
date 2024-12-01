@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   OneToMany,
   OneToOne,
+  JoinColumn,
 } from "typeorm";
 
 @Entity()
@@ -28,9 +29,11 @@ export class User {
   email: string;
 
   @OneToOne(() => Account)
+  @JoinColumn()
   account?: Account;
 
   @OneToOne(() => Picture)
+  @JoinColumn()
   picture?: Picture;
 
   @CreateDateColumn()

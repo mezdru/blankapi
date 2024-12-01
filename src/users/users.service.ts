@@ -46,7 +46,10 @@ export class UsersService {
 
   linkAccount(userId: string, accountId: string) {
     try {
-      return this.userRepository.update(userId, { account: { id: accountId } });
+      return this.userRepository.update(
+        { id: userId },
+        { account: { id: accountId } }
+      );
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException("Failed to link account to user");
