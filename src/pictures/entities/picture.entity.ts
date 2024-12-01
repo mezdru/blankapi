@@ -15,6 +15,9 @@ export class Picture {
   id: string;
 
   @Column()
+  filename: string;
+
+  @Column()
   host: string;
 
   @Column()
