@@ -10,6 +10,7 @@ import { PicturesModule } from "./pictures/pictures.module";
 import { TagsModule } from "./tags/tags.module";
 import { ActivitiesModule } from "./activities/activities.module";
 import { SubscriptionsModule } from "./subscriptions/subscriptions.module";
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { SubscriptionsModule } from "./subscriptions/subscriptions.module";
     TagsModule,
     ActivitiesModule,
     SubscriptionsModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
