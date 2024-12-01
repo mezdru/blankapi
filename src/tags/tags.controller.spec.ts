@@ -3,9 +3,11 @@ import { TagsController } from "./tags.controller";
 import { TagsService } from "./tags.service";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Tag } from "./entities/tag.entity";
-import { repositoryMockFactory } from "src/utils/tests/tests.utils";
+import { createMock } from "@golevelup/ts-jest";
+import { Repository } from "typeorm";
 
 describe("TagsController", () => {
+  const RepositoryMock = createMock<Repository<Tag>>();
   let controller: TagsController;
 
   beforeEach(async () => {
@@ -15,7 +17,7 @@ describe("TagsController", () => {
         TagsService,
         {
           provide: getRepositoryToken(Tag),
-          useFactory: repositoryMockFactory,
+          useValue: RepositoryMock,
         },
       ],
     }).compile();

@@ -3,9 +3,11 @@ import { UsersController } from "./users.controller";
 import { UsersService } from "./users.service";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { User } from "./entities/user.entity";
-import { repositoryMockFactory } from "../utils/tests/tests.utils";
+import { createMock } from "@golevelup/ts-jest";
+import { Repository } from "typeorm";
 
 describe("UsersController", () => {
+  const RepositoryMock = createMock<Repository<User>>();
   let controller: UsersController;
 
   beforeEach(async () => {
@@ -15,7 +17,7 @@ describe("UsersController", () => {
         UsersService,
         {
           provide: getRepositoryToken(User),
-          useFactory: repositoryMockFactory,
+          useValue: RepositoryMock,
         },
       ],
     }).compile();

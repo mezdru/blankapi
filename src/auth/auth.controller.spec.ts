@@ -3,9 +3,7 @@ import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { UsersService } from "src/users/users.service";
 import { JwtService } from "@nestjs/jwt";
-import { getRepositoryToken } from "@nestjs/typeorm";
-import { User } from "src/users/entities/user.entity";
-import { repositoryMockFactory } from "src/utils/tests/tests.utils";
+import { createMock } from "@golevelup/ts-jest";
 
 describe("AuthController", () => {
   let controller: AuthController;
@@ -15,11 +13,10 @@ describe("AuthController", () => {
       controllers: [AuthController],
       providers: [
         AuthService,
-        UsersService,
         JwtService,
         {
-          provide: getRepositoryToken(User),
-          useFactory: repositoryMockFactory,
+          provide: UsersService,
+          useValue: createMock<UsersService>(),
         },
       ],
     }).compile();

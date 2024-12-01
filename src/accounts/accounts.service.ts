@@ -6,6 +6,7 @@ import { CreateAccountDto } from "./dto/createAccount.dto";
 import { PicturesService } from "src/pictures/pictures.service";
 import { SubscriptionsService } from "src/subscriptions/subscriptions.service";
 import { User } from "src/users/entities/user.entity";
+import { UsersService } from "src/users/users.service";
 
 @Injectable()
 export class AccountsService {
@@ -13,7 +14,8 @@ export class AccountsService {
     @InjectRepository(Account)
     private accountRepository: Repository<Account>,
     private readonly picturesService: PicturesService,
-    private readonly subscriptionsService: SubscriptionsService
+    private readonly subscriptionsService: SubscriptionsService,
+    private readonly usersService: UsersService
   ) {}
 
   findOneById(id: string) {
@@ -52,6 +54,8 @@ export class AccountsService {
             user.id
           )
         : undefined;
+
+      await this.usersService.linkAccount(user.id, createdAccount.id);
 
       // Allows us to update the entity and return the resulting entity
       return (
