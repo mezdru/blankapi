@@ -17,6 +17,6 @@ export class ActivitiesController {
   @Get(":id")
   @UseGuards(JwtAuthGuard)
   async getOne(@Param("id", ParseUUIDPipe) id: string) {
-    return this.activitiesService.findOne(id);
+    return this.activitiesService.findOneById(id);
   }
 }

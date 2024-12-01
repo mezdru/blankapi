@@ -46,6 +46,7 @@ export class AuthService {
         email: newUser.email,
       });
     } catch (e) {
+      console.error(e);
       throw new InternalServerErrorException(e);
     }
   }

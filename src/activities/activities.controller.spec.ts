@@ -1,11 +1,13 @@
+import { createMock } from "@golevelup/ts-jest";
+import { Repository } from "typeorm";
 import { Test, TestingModule } from "@nestjs/testing";
+import { getRepositoryToken } from "@nestjs/typeorm";
 import { ActivitiesController } from "./activities.controller";
 import { ActivitiesService } from "./activities.service";
-import { getRepositoryToken } from "@nestjs/typeorm";
 import { Activity } from "./entities/activity.entity";
-import { repositoryMockFactory } from "src/utils/tests/tests.utils";
 
 describe("ActivitiesController", () => {
+  const RepositoryMock = createMock<Repository<Activity>>();
   let controller: ActivitiesController;
 
   beforeEach(async () => {
@@ -15,7 +17,7 @@ describe("ActivitiesController", () => {
         ActivitiesService,
         {
           provide: getRepositoryToken(Activity),
-          useFactory: repositoryMockFactory,
+          useValue: RepositoryMock,
         },
       ],
     }).compile();

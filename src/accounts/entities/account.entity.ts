@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -18,7 +19,8 @@ export class Account {
   name: string;
 
   @OneToOne(() => Picture)
-  picture: Picture;
+  @JoinColumn()
+  picture?: Picture;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -29,6 +31,6 @@ export class Account {
   @OneToMany(() => Picture, (picture) => picture.account)
   pictures: Picture[];
 
-  @Column()
-  stripeCustomerId: string;
+  @Column({ nullable: true })
+  stripeCustomerId?: string;
 }

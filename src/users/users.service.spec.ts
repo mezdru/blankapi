@@ -3,13 +3,12 @@ import { UsersService } from "./users.service";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
-import { MockType, repositoryMockFactory } from "../utils/tests/tests.utils";
 import { CreateUserDto } from "./dto/createUser.dto";
+import { createMock } from "@golevelup/ts-jest";
 
 describe("UsersService", () => {
+  const RepositoryMock = createMock<Repository<User>>();
   let service: UsersService;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let repositoryMock: MockType<Repository<User>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -17,13 +16,12 @@ describe("UsersService", () => {
         UsersService,
         {
           provide: getRepositoryToken(User),
-          useFactory: repositoryMockFactory,
+          useValue: RepositoryMock,
         },
       ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
-    repositoryMock = module.get(getRepositoryToken(User));
   });
 
   it("should be defined", () => {
@@ -34,14 +32,14 @@ describe("UsersService", () => {
     const email = "email";
     await service.findOneByEmail(email);
 
-    expect(repositoryMock.findOne).toHaveBeenCalledWith({ where: { email } });
+    expect(RepositoryMock.findOne).toHaveBeenCalledWith({ where: { email } });
   });
 
   it("should call the repository's find method with id", async () => {
     const id = "id";
     await service.findOneById(id);
 
-    expect(repositoryMock.findOne).toHaveBeenCalledWith({ where: { id } });
+    expect(RepositoryMock.findOne).toHaveBeenCalledWith({ where: { id } });
   });
 
   it("should call the repository's save method", async () => {
@@ -53,6 +51,6 @@ describe("UsersService", () => {
 
     await service.createOne(userObj);
 
-    expect(repositoryMock.save).toHaveBeenCalledWith(userObj);
+    expect(RepositoryMock.save).toHaveBeenCalledWith(userObj);
   });
 });

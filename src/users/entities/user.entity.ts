@@ -28,10 +28,10 @@ export class User {
   email: string;
 
   @OneToOne(() => Account)
-  account: Account;
+  account?: Account;
 
   @OneToOne(() => Picture)
-  picture: Picture;
+  picture?: Picture;
 
   @CreateDateColumn()
   createdAt: Date;

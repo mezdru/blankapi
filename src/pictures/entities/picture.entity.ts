@@ -26,9 +26,9 @@ export class Picture {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.pictures)
+  @ManyToOne(() => User, (user) => user.pictures, { nullable: false })
   user: User;
 
-  @ManyToOne(() => Account, (account) => account.pictures)
+  @ManyToOne(() => Account, (account) => account.pictures, { nullable: false })
   account: Account;
 }

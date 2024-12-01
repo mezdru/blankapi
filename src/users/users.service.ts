@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { User } from "./entities/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -12,20 +12,44 @@ export class UsersService {
   ) {}
 
   findOneByEmail(email: string) {
-    if (!email) return null;
-    return this.userRepository.findOne({ where: { email } });
+    try {
+      if (!email) return null;
+      return this.userRepository.findOne({ where: { email } });
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException("Failed to find user by email");
+    }
   }
 
   findOneById(id: string) {
-    if (!id) return null;
-    return this.userRepository.findOne({ where: { id } });
+    try {
+      if (!id) return null;
+      return this.userRepository.findOne({ where: { id } });
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException("Failed to find user by id");
+    }
   }
 
   createOne(user: CreateUserDto) {
-    return this.userRepository.save({
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-    });
+    try {
+      return this.userRepository.save({
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      });
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException("Failed to create user");
+    }
+  }
+
+  linkAccount(userId: string, accountId: string) {
+    try {
+      return this.userRepository.update(userId, { account: { id: accountId } });
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException("Failed to link account to user");
+    }
   }
 }

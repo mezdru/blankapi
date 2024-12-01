@@ -10,8 +10,13 @@ export class ActivitiesService {
     private accountRepository: Repository<Activity>
   ) {}
 
-  async findOne(id: string): Promise<Activity> {
-    if (!id) return null;
-    return this.accountRepository.findOne({ where: { id } });
+  async findOneById(id: string) {
+    try {
+      if (!id) return null;
+      return this.accountRepository.findOne({ where: { id } });
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to find activity by id");
+    }
   }
 }

@@ -14,8 +14,8 @@ export class SubscriptionsController {
     @Body() createSubscriptionSessionDto: CreateSubscriptionSessionDto
   ): Promise<Stripe.Response<Stripe.Checkout.Session> | undefined> {
     return this.subscriptionsService.createSubscriptionSession(
-      req.user.account.stripeCustomerId,
-      createSubscriptionSessionDto
+      createSubscriptionSessionDto,
+      req.user.account?.stripeCustomerId
     );
   }
 
@@ -24,7 +24,7 @@ export class SubscriptionsController {
     @Request() req: UserRequest
   ): Promise<Stripe.Response<Stripe.BillingPortal.Session>> {
     return this.subscriptionsService.getPortal(
-      req.user.account.stripeCustomerId
+      req.user.account?.stripeCustomerId
     );
   }
 }
